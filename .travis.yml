@@ -14,9 +14,9 @@ before_install:
   - export GOPATH="${ROOT}:${GOPATH}"
   - govendor sync && make
   - cd frontend && npm i && npm run-script build && cd -
-  - docker build -t lixinio/doc-server:1.1.1 .
-  - docker tag lixinio/doc-server:1.1.1 lixinio/doc-server:1.1.1
-  - docker push lixinio/doc-server:1.1.1
+
 script:
-  - docker images
+  - docker build -t lixinio/doc-server:1.1.1 .
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker push lixinio/doc-server:1.1.1
 
