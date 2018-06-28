@@ -37,6 +37,13 @@ func Init(repository *git.Repository, r kelly.Router, config *Config) {
 			Indexfiles: []string{"index.html"},
 		}))
 
+	r.GET("/swagger3/*path",
+		md.Gzip(md.BestSpeed, md.GzipMethod),
+		kelly.Static(&kelly.StaticConfig{
+			Dir:        http.Dir(config.SwaggetUi + "/v3"),
+			Indexfiles: []string{"index.html"},
+		}))
+
 	// 绑定所有的options请求来支持中间件作跨域处理
 	r.OPTIONS("/*path", func(c *kelly.Context) {
 		c.WriteString(http.StatusOK, "ok")

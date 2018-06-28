@@ -16,7 +16,7 @@ before_install:
   - cd frontend && npm i && npm run-script build && cd -
 
 script:
-  - docker build -t lixinio/doc-server:1.1.1 .
+  - docker build -t lixinio/doc-server:1.2.0 .
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push lixinio/doc-server:1.1.1
+  - docker push lixinio/doc-server:1.2.0
 
