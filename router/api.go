@@ -3,9 +3,9 @@ package router
 import (
 	"net/http"
 
+	git "github.com/go-git/go-git/v5"
 	"github.com/qjw/kelly"
 	md "github.com/qjw/kelly/middleware"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 func Init(repository *git.Repository, r kelly.Router, config *Config) {

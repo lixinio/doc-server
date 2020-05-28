@@ -133,7 +133,7 @@ make
 ./doc-server
 
 # 或者
-FRONTEND=frontend/dist/ SWAGGER_UI=swaggerui ./doc-server
+FRONTEND=frontend/dist/ SWAGGER_UI=swaggerui LOCAL_DIR=data ./doc-server
 
 # 直接从本地读取，没必要每次都clone
 GIT_ORIGIN= ./doc-server
