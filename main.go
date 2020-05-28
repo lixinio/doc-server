@@ -6,9 +6,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	R "github.com/lixinio/doc-server/router"
+	R "doc-server/router"
+	git "github.com/go-git/go-git/v5"
 	"github.com/qjw/kelly"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package router
 
 const (
 	LOCAL_DIR  = "/tmp/data"
-	GIT_ORIGIN = "https://github.com/qjw/test.git"
+	GIT_ORIGIN = ""
 	SWAGGER_UI = "/tmp/swagger_ui"
 	FRONTEND   = "/tmp/frontend"
 	PORT       = 8888

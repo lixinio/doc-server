@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	git "github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/qjw/kelly"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 type User struct {
@@ -195,7 +195,11 @@ func initGitRouter(repository *git.Repository, r kelly.Router) {
 			c.Abort(http.StatusInternalServerError, err.Error())
 			return
 		}
-		cIter, err := repository.Log(&git.LogOptions{From: ref.Hash()})
+
+		cIter, err := repository.Log(&git.LogOptions{
+			From:     ref.Hash(),
+			FileName: &filename,
+		})
 		if err != nil {
 			c.Abort(http.StatusInternalServerError, err.Error())
 			return
@@ -204,15 +208,13 @@ func initGitRouter(repository *git.Repository, r kelly.Router) {
 		res := []*Commit{}
 		err = cIter.ForEach(func(commit *object.Commit) error {
 
-			if matchFile(repository, commit, filename) == nil {
-				res = append(res, &Commit{
-					Name:  commit.Author.Name,
-					Email: commit.Author.Email,
-					Time:  commit.Author.When.Format("2006-01-02 03:04:05"),
-					Hash:  commit.Hash.String(),
-					Log:   commit.Message,
-				})
-			}
+			res = append(res, &Commit{
+				Name:  commit.Author.Name,
+				Email: commit.Author.Email,
+				Time:  commit.Author.When.Format("2006-01-02 03:04:05"),
+				Hash:  commit.Hash.String(),
+				Log:   commit.Message,
+			})
 
 			return nil
 		})
